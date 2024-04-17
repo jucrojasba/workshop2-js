@@ -17,7 +17,7 @@ activities.forEach((element) => {
     userActivities.push(element.name);
   }
 });
-if (userActivities) {
+if (userActivities.length != 0) {
   alert(
     `Tienes presupuesto para estas actividades: ${userActivities} y te sobran: $${expenses}`
   );
