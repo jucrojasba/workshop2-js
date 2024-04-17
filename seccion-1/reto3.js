@@ -1,34 +1,48 @@
-const budget = prompt("Ingresa tu presupuesto")
-const cost = prompt("Ingresa el total de costos estimados de viaje incluyendo alojamiento, transporte y comida")
-const threshold = prompt("Ingresa una cantidad fija considerada para gastos imprevistos o emergencias durante el viaje")
-if (budget - cost >= threshold){
-    alert(`Felicidades tienes ${budget-cost} para adquirir un artìculo adicional`)
-    let addMore = confirm("Deseas conocer los productos que peudes adquirir")
-    if(addMore){
-        let articles = [];
-        while (true){
-            try {
-                let nameArticle = prompt("Ingresa el nombre del artìculo");
-                let costArticle = parseFloat(prompt("Ingresa el costo del artìculo"));          
-                let article = {
-                name: nameArticle,
-                cost: costArticle
-                };
-                articles.push(article)
-                let addMoreArticle = confirm(`Deseas agregar mas artìculos`);
-                if (!addMoreArticle){
-                    console.log(articles)
-                    break
-                }
-            } catch (error) {
-                alert("El valor ingresado no es válido")
-            }
-        }
-
-    }else{
-        alert("Buen viaje!")
+const budget = parseFloat(prompt("Ingresa tu presupuesto"));
+const cost = parseFloat(
+  prompt(
+    "Ingresa el total de costos estimados de viaje incluyendo alojamiento, transporte y comida"
+  )
+);
+const threshold = parseFloat(
+  prompt(
+    "Ingresa una cantidad fija considerada para gastos imprevistos o emergencias durante el viaje"
+  )
+);
+console.log(
+  `Your budget is ${budget}\n Yor expenses are ${cost}\n Your threshold is ${threshold}\n Your unused budget is ${
+    budget - cost - threshold
+  }`
+);
+let minValue = budget - cost - threshold;
+if (minValue >= 50000) {
+  //$50.000 es el precio minimo para agregar un articulo
+  alert(`Felicidades tienes ${minValue} para agregar un artìculo adicional`);
+  let addMore = confirm("Deseas conocer los articulos que puedes agregar?");
+  if (addMore) {
+    let articles = [
+      { name: "zapatos", cost: 50000 },
+      { name: "toallas", cost: 90000 },
+      { name: "cobijas", cost: 135000 },
+    ];
+    let lowCost = [];
+    for (let index = 0; index < articles.length; index++) {
+      if (minValue > articles[index].cost) {
+        lowCost.push(articles[index].name);
+        minValue = minValue - articles[index].cost;
+      } else {
+        alert(
+          `Puedes agregar los siguientes articulos ${lowCost} y te sobran ${minValue}`
+        );
+        console.log(
+          `Puedes agregar los siguientes articulos ${lowCost} y te sobran ${minValue}`
+        );
+        break;
+      }
     }
-
-}else{
-    alert("Tus fondos son insuficientes para adquirir un articulo adicional")
+  } else {
+    alert("Buen viaje!");
+  }
+} else {
+  alert("Tus fondos son insuficientes para adquirir un articulo adicional");
 }
